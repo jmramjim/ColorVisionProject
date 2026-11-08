@@ -1,8 +1,18 @@
 #include <iostream>
+#include <string>
+#include <vector>
+#include <fstream>
 using namespace std;
+
+string getColorName(int color, vector<string> colors);
+void checkColorPair(int color1, int color2, bool &safe);
 
 int main()
 {
+    vector<string> colors = {"Red", "Blue", "Green", "Yellow"};
+    ofstream outputFile("colorResults.txt");
+
+    bool safe;
     int color1;
     int color2;
     char again = 'y';
@@ -33,47 +43,34 @@ int main()
     cout << "Choose your second color: ";
     cin >> color2;
 
+    checkColorPair(color1, color2, safe);
+    
+    outputFile << getColorName(color1, colors) << " and "
+               << getColorName(color2, colors) << "\n";
+    if (color1 != color2)
+    {
+      if (safe)
+      {
+          cout << "This is a safer color combination.\n";
+      }
+    
+      else
+      {
+          cout << "This color combination may be difficult for people with color blindness.\n";
+         cout << "Try using Red and Blue instead, they might be easier to tell apart.\n";    
+      }
+    }  
     cout << "You chose: ";
 
-    switch (color1)
-    {
-        case 1:
-            cout << "Red";
-            break;
-        case 2:
-            cout << "Blue";
-            break;
-        case 3:
-            cout << "Green";
-            break;
-        case 4:
-            cout << "Yellow";
-            break;
-    }
+    cout << getColorName(color1, colors);
 
     cout << " and ";
 
-    switch (color2)
-    {
-        case 1:
-            cout << "Red";
-            break;
-        case 2:
-            cout << "Blue";
-            break;
-        case 3:
-            cout << "Green";
-            break;
-        case 4:
-            cout << "Yellow";
-            break;
-        default:
-            cout << "Unknown color";
-    }
+    cout << getColorName(color2, colors);
 
     if (color1 == color2)
     {
-        cout << "You chose the same color twice, please choose again.\n";
+        cout << ": You chose the same color twice, please choose again.\n";
     }
 
     else if ((color1 == 1 && color2 == 3) || (color1 == 3 && color2 == 1))
@@ -86,11 +83,11 @@ int main()
     }
     else if ((color1 == 4 && color2 == 3) || (color1 == 3 && color2 == 4))
     {
-        cout << ": There is no specific type of color blindness for Green and Yellow called Green-Yellow or Yellow-Green.";
+        cout << ": There is no specific type of color blindness for Green and Yellow called Green-Yellow or Yellow-Green.\n";
     }
-    else if ((color1 == 2 && color2 == 4) || (color1 == 3 && color2 == 4))
+    else if ((color1 == 2 && color2 == 4) || (color1 == 4 && color2 == 2))
     {
-        cout << ": These colors would be hard to tell apart for people with Blue- Yellow color blindness which could include Tritanomaly which would make it very hard to tell Blue and Yellow apart (along with the colors green and red) and another colorblindness called Tritanopia in which a person wouldnt be able to tell blue and yellow apart pretty much at all.";
+        cout << ": These colors would be hard to tell apart for people with Blue- Yellow color blindness which could include Tritanomaly which would make it very hard to tell Blue and Yellow apart (along with the colors green and red) and another colorblindness called Tritanopia in which a person wouldnt be able to tell blue and yellow apart pretty much at all.\n";
     }
     else
     {
@@ -102,7 +99,29 @@ int main()
     cout << "\n";
     }
 
-    cout << "Thank you for wanting to learn about color blindness!";
+    outputFile.close();
 
+    cout << "Thank you for wanting to learn about color blindness!";
+    
   return 0;
+}
+string getColorName(int color, vector<string> colors)
+{
+    return colors[color - 1];
+}
+void checkColorPair(int color1, int color2, bool &safe)
+{
+    if ((color1 == 1 && color2 == 3) ||
+        (color1 == 3 && color2 == 1) ||
+        (color1 == 2 && color2 == 4) ||
+        (color1 == 2 && color2 == 3) ||
+        (color1 == 3 && color2 == 2) ||
+        (color1 == 4 && color2 == 2))
+        {
+            safe = false;
+        }
+        else
+        {
+            safe = true;
+        }
 }
