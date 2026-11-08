@@ -1,15 +1,14 @@
-# Replace with your unique project name
+# COLOR VISION PROJECT
 
 ## Description
 
-**version 1.0**
+**version 2.0**
 
-Replace with a description of *what* your program does (not *how* it works)
+This program helps people learn about different types of colorblindness by letting them choose different color combinations so that they can learn about how those pairs would look like for people with colorblindness. It also shows safe combinations and would recommend a different colors if a pair is hard to tell apart. 
 
 
-## Developer
+## Joshua Ramirez
 
-Replace with your name
 
 ## Example
 
@@ -23,5 +22,12 @@ g++ --std=c++11 *.cpp -o cvp
 Here is an example of the program running:
 
 ```
-Replace this with a copy-pasted example of the input/output of your program running.
+Color Palette
+
+1. Red
+2. Blue
+3. Green
+4. Yellow
+5. Monochromacy
+Choose your first color:
 ```
